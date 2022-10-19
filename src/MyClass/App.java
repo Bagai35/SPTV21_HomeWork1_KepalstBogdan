@@ -3,23 +3,26 @@ package MyClass;
 import Entity.Buyer;
 import Entity.Product;
 import Entity.History;
+
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class App {
     private Product[] products;
     private Buyer[] buyers;
-    private History[] histories;
 
 
     public App() {
+        products = new Product[0];
     }
 
     public void run() {
+
         boolean repeat = true;
         Scanner scanner = new Scanner(System.in);
 
-        histories = new History[0];
+        History[] histories = new History[0];
 
         do {
             System.out.println(" ");
@@ -39,18 +42,19 @@ public class App {
                 case 0:
                     repeat = false;
                     break;
+
                 case 1:
                     System.out.println("Добавление товара");
                     System.out.println("Введите название товара: ");
                     String productName = scanner.nextLine();
                     System.out.println("Введите колл-во товара: ");
-                    int quantity = scanner.nextInt();
+                    String quantity = scanner.nextLine();
                     System.out.println("Введите название производителя");
                     String manufacturerName = scanner.nextLine();
                     Product product = createProduct(productName, quantity, manufacturerName);
-                    Product[] newProducts = new Product[products.length + 1];
-                    newProducts[newProducts.length - 1] = product;
-                    this.products = newProducts;
+                    this.products = Arrays.copyOf(this.products, this.products.length+1);
+                    this.products[this.products.length - 1] = product;
+
                     break;
 
                 case 2:
@@ -66,6 +70,7 @@ public class App {
                     newBuyer[newBuyer.length - 1] = buyer;
                     this.buyers = newBuyer;
                     break;
+
                 case 3:
                     System.out.println("Выдать товар");
                     for (int i = 0; i < buyers.length; i++) {
@@ -87,9 +92,9 @@ public class App {
                     history.setProduct(products[numberProducts - 1]);
                     history.setBuyer(buyers[numberBuyer - 1]);
                     history.setTakeOnBook(new GregorianCalendar().getTime());
-                    History[] newHistories = new History[this.histories.length + 1];
+                    History[] newHistories = new History[histories.length + 1];
                     newHistories[newHistories.length - 1] = history;
-                    this.histories = newHistories;
+                    histories = newHistories;
                     System.out.println(history);
                     break;
                 case 4:
@@ -102,10 +107,10 @@ public class App {
             System.out.println("Закрытие программы, досвидания!");
         }
 
-        public Product createProduct (String productName,int quantity, String manufacturerName){
+        public Product createProduct (String productName, String quantity, String manufacturerName){
             Product product = new Product();
             product.setProductName(productName);
-            product.setQuantity(quantity);
+            product.setQuantity(Integer.parseInt(quantity));
             product.setManufacturer(manufacturerName);
             return product;
         }
