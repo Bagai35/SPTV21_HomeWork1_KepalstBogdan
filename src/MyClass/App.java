@@ -10,7 +10,6 @@ public class App {
     private Product[] products;
     private Buyer[] buyers;
     private History[] histories;
-    private History history;
 
 
     public App() {
@@ -80,35 +79,42 @@ public class App {
                         System.out.println(i + 1 + ". " + products[i].productName() + ". " + products[i] + ". " + ". " + products[i].manufacturer());
                     }
                     System.out.println();
-            }
-            System.out.print("Выберите номер книги: ");
-            int numberProducts = scanner.nextInt();
-            scanner.nextLine();
-            history = new History();
-            history.setProduct(products[numberProducts - 1]);
-            history.setBuyer(buyers[numberBuyer - 1]);
-            history.setTakeOnBook(new GregorianCalendar().getTime());
-            History[] newHistories = new History[this.histories.length + 1];
-            newHistories[newHistories.length - 1] = history;
-            this.histories = newHistories;
-            System.out.println(history);
-            break;
 
-        } while (repeat);
-        System.out.println("Закрытие программы, досвидания!");
-    }
-    public Product createProduct(String productName, int quantity, String manufacturerName){
-        Product product = new Product();
-        product.setProductName(productName);
-        product.setQuantity(quantity);
-        product.setManufacturer(manufacturerName);
-        return product;
-    }
-    public Buyer createBuyer(String name, String lastname, String phone){
-        Buyer buyer = new Buyer();
-        buyer.setFirstname(name);
-        buyer.setLastname(lastname);
-        buyer.setPhone(Integer.parseInt(phone));
-        return buyer;
-    }
+                    System.out.print("Выберите номер книги: ");
+                    int numberProducts = scanner.nextInt();
+                    scanner.nextLine();
+                    History history = new History();
+                    history.setProduct(products[numberProducts - 1]);
+                    history.setBuyer(buyers[numberBuyer - 1]);
+                    history.setTakeOnBook(new GregorianCalendar().getTime());
+                    History[] newHistories = new History[this.histories.length + 1];
+                    newHistories[newHistories.length - 1] = history;
+                    this.histories = newHistories;
+                    System.out.println(history);
+                    break;
+                case 4:
+
+                    break;
+                default:
+                    System.out.println("выбериет задачу");
+            }
+        }while (repeat) ;
+            System.out.println("Закрытие программы, досвидания!");
+        }
+
+        public Product createProduct (String productName,int quantity, String manufacturerName){
+            Product product = new Product();
+            product.setProductName(productName);
+            product.setQuantity(quantity);
+            product.setManufacturer(manufacturerName);
+            return product;
+        }
+        public Buyer createBuyer (String name, String lastname, String phone){
+            Buyer buyer = new Buyer();
+            buyer.setFirstname(name);
+            buyer.setLastname(lastname);
+            buyer.setPhone(Integer.parseInt(phone));
+            return buyer;
+        }
 }
+
